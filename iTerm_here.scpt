@@ -35,5 +35,38 @@ on open these items
                   set this_item to item i of these_items
                   my process_item(this_item)
         end repeat
-        
+
 end open
+
+
+-- Subroutine to perform create and maintain the state of the window on iTerm
+
+on process_item(this_item)
+
+	   set thePath to quoted form of POSIX path of this_item
+	   set theCmd to "cd " & thePath & ";clear;"
+
+	   tell application "iTerm"
+		     activate
+		     -- just open a terminal and cd to thePath
+		     --set newWindow to (create window with default profile)
+
+		     set aWindow to current window
+
+		     if aWindow is equal to missing value then
+			       set aWindow to (create window with default profile)
+		     else
+			       tell aWindow
+				          set t to (create tab with default profile)
+			       end tell
+		     end if
+
+
+		     tell current session of aWindow
+			          write text "cd " & thePath & ";clear;"
+		     end tell
+
+	   end tell
+
+
+end process_item
