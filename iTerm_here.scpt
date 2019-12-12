@@ -26,3 +26,14 @@ on run
 
    	end tell
 end run
+
+-- This handler processes folders dropped onto the toolbar script icon
+
+on open these items
+
+        repeat with i from 1 to the count of these_items
+                  set this_item to item i of these_items
+                  my process_item(this_item)
+        end repeat
+        
+end open
